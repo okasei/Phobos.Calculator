@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Shared\Phobos.Shared.deps.json" />
+    <None Remove="Shared\Phobos.Shared.pdb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Phobos.Shared">
+      <HintPath>..\Phobos\Shared\Phobos.Shared.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

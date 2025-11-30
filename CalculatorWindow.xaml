@@ -1,0 +1,213 @@
+﻿<Window x:Class="Phobos.Calculator.CalculatorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Phobos.Calculator"
+        mc:Ignorable="d"
+        Title="Phobos.Calculator" 
+        Width="380" Height="520"
+        MinWidth="320" MinHeight="450"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource BackgroundBrush}">
+
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- 设置栏 -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,5">
+            <TextBlock Text="Angle:" VerticalAlignment="Center" Margin="0,0,5,0"
+                       Foreground="{DynamicResource TextBrush}"/>
+            <ComboBox x:Name="AngleModeCombo" Width="70" SelectionChanged="AngleModeCombo_SelectionChanged">
+                <ComboBoxItem Content="Deg" IsSelected="True"/>
+                <ComboBoxItem Content="Rad"/>
+                <ComboBoxItem Content="Grad"/>
+            </ComboBox>
+        </StackPanel>
+
+        <!-- 历史显示 -->
+        <TextBlock x:Name="HistoryDisplay" Grid.Row="1" 
+                   Height="20" Margin="5,0,5,5"
+                   FontSize="12" TextAlignment="Right"
+                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+
+        <!-- 主显示屏 -->
+        <Border Grid.Row="2" BorderThickness="1" CornerRadius="4" Margin="0,0,0,10"
+                BorderBrush="{DynamicResource BorderBrush}"
+                Background="{DynamicResource SurfaceBrush}">
+            <TextBox x:Name="Display" 
+                     Height="60" Margin="10"
+                     FontSize="32" FontFamily="Consolas"
+                     TextAlignment="Right"
+                     VerticalContentAlignment="Center"
+                     Text="0" 
+                     BorderThickness="0"
+                     Background="Transparent"
+                     Foreground="{DynamicResource TextBrush}"
+                     CaretBrush="{DynamicResource PrimaryBrush}"
+                     KeyDown="Display_KeyDown"/>
+        </Border>
+
+        <!-- 按钮区 -->
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- 第一行: 科学函数 -->
+            <Button Grid.Row="0" Grid.Column="0" Content="sin" Tag="sin(" Click="Button_Click" Style="{DynamicResource FuncButton}"/>
+            <Button Grid.Row="0" Grid.Column="1" Content="cos" Tag="cos(" Click="Button_Click" Style="{DynamicResource FuncButton}"/>
+            <Button Grid.Row="0" Grid.Column="2" Content="tan" Tag="tan(" Click="Button_Click" Style="{DynamicResource FuncButton}"/>
+            <Button Grid.Row="0" Grid.Column="3" Content="log" Tag="log(" Click="Button_Click" Style="{DynamicResource FuncButton}"/>
+            <Button Grid.Row="0" Grid.Column="4" Content="ln" Tag="ln(" Click="Button_Click" Style="{DynamicResource FuncButton}"/>
+            <Button Grid.Row="0" Grid.Column="5" Content="(" Tag="(" Click="Button_Click" Style="{DynamicResource FuncButton}"/>
+            <Button Grid.Row="0" Grid.Column="6" Content=")" Tag=")" Click="Button_Click" Style="{DynamicResource FuncButton}"/>
+
+            <!-- 第二行: 更多科学函数 -->
+            <Button Grid.Row="1" Grid.Column="0" Content="asin" Tag="asin(" Click="Button_Click" Style="{DynamicResource FuncButton}"/>
+            <Button Grid.Row="1" Grid.Column="1" Content="acos" Tag="acos(" Click="Button_Click" Style="{DynamicResource FuncButton}"/>
+            <Button Grid.Row="1" Grid.Column="2" Content="atan" Tag="atan(" Click="Button_Click" Style="{DynamicResource FuncButton}"/>
+            <Button Grid.Row="1" Grid.Column="3" Content="x²" Tag="^2" Click="Button_Click" Style="{DynamicResource FuncButton}"/>
+            <Button Grid.Row="1" Grid.Column="4" Content="√" Tag="sqrt(" Click="Button_Click" Style="{DynamicResource FuncButton}"/>
+            <Button Grid.Row="1" Grid.Column="5" Content="xʸ" Tag="^" Click="Button_Click" Style="{DynamicResource FuncButton}"/>
+            <Button Grid.Row="1" Grid.Column="6" Content="π" Tag="π" Click="Button_Click" Style="{DynamicResource FuncButton}"/>
+
+            <!-- 第三行: 数字 7-9 和操作 -->
+            <Button Grid.Row="2" Grid.Column="0" Content="7" Click="Button_Click" Style="{DynamicResource NumButton}"/>
+            <Button Grid.Row="2" Grid.Column="1" Content="8" Click="Button_Click" Style="{DynamicResource NumButton}"/>
+            <Button Grid.Row="2" Grid.Column="2" Content="9" Click="Button_Click" Style="{DynamicResource NumButton}"/>
+            <Button Grid.Row="2" Grid.Column="3" Content="÷" Tag="/" Click="Button_Click" Style="{DynamicResource OpButton}"/>
+            <Button Grid.Row="2" Grid.Column="4" Content="exp" Tag="exp(" Click="Button_Click" Style="{DynamicResource FuncButton}"/>
+            <Button Grid.Row="2" Grid.Column="5" Content="MC" Tag="MC" Click="Button_Click" Style="{DynamicResource MemButton}"/>
+            <Button Grid.Row="2" Grid.Column="6" Content="MR" Tag="MR" Click="Button_Click" Style="{DynamicResource MemButton}"/>
+
+            <!-- 第四行: 数字 4-6 和操作 -->
+            <Button Grid.Row="3" Grid.Column="0" Content="4" Click="Button_Click" Style="{DynamicResource NumButton}"/>
+            <Button Grid.Row="3" Grid.Column="1" Content="5" Click="Button_Click" Style="{DynamicResource NumButton}"/>
+            <Button Grid.Row="3" Grid.Column="2" Content="6" Click="Button_Click" Style="{DynamicResource NumButton}"/>
+            <Button Grid.Row="3" Grid.Column="3" Content="×" Tag="*" Click="Button_Click" Style="{DynamicResource OpButton}"/>
+            <Button Grid.Row="3" Grid.Column="4" Content="n!" Tag="fact(" Click="Button_Click" Style="{DynamicResource FuncButton}"/>
+            <Button Grid.Row="3" Grid.Column="5" Content="M+" Tag="M+" Click="Button_Click" Style="{DynamicResource MemButton}"/>
+            <Button Grid.Row="3" Grid.Column="6" Content="M-" Tag="M-" Click="Button_Click" Style="{DynamicResource MemButton}"/>
+
+            <!-- 第五行: 数字 1-3 和操作 -->
+            <Button Grid.Row="4" Grid.Column="0" Content="1" Click="Button_Click" Style="{DynamicResource NumButton}"/>
+            <Button Grid.Row="4" Grid.Column="1" Content="2" Click="Button_Click" Style="{DynamicResource NumButton}"/>
+            <Button Grid.Row="4" Grid.Column="2" Content="3" Click="Button_Click" Style="{DynamicResource NumButton}"/>
+            <Button Grid.Row="4" Grid.Column="3" Content="-" Click="Button_Click" Style="{DynamicResource OpButton}"/>
+            <Button Grid.Row="4" Grid.Column="4" Content="e" Tag="e" Click="Button_Click" Style="{DynamicResource FuncButton}"/>
+            <Button Grid.Row="4" Grid.Column="5" Content="%" Click="Button_Click" Style="{DynamicResource FuncButton}"/>
+            <Button Grid.Row="4" Grid.Column="6" Content="CE" Tag="CE" Click="Button_Click" Style="{DynamicResource ClearButton}"/>
+
+            <!-- 第六行: 0, 小数点, 等号等 -->
+            <Button Grid.Row="5" Grid.Column="0" Content="0" Click="Button_Click" Style="{DynamicResource NumButton}"/>
+            <Button Grid.Row="5" Grid.Column="1" Content="." Click="Button_Click" Style="{DynamicResource NumButton}"/>
+            <Button Grid.Row="5" Grid.Column="2" Content="±" Tag="NEG" Click="Button_Click" Style="{DynamicResource NumButton}"/>
+            <Button Grid.Row="5" Grid.Column="3" Content="+" Click="Button_Click" Style="{DynamicResource OpButton}"/>
+            <Button Grid.Row="5" Grid.Column="4" Content="Ans" Tag="ans" Click="Button_Click" Style="{DynamicResource FuncButton}"/>
+            <Button Grid.Row="5" Grid.Column="5" Content="C" Tag="C" Click="Button_Click" Style="{DynamicResource ClearButton}"/>
+            <Button Grid.Row="5" Grid.Column="6" Content="=" Tag="=" Click="Button_Click" Style="{DynamicResource EqualButton}"/>
+        </Grid>
+    </Grid>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <!-- 设计时默认值（运行时会被主题覆盖） -->
+            <SolidColorBrush x:Key="BackgroundBrush" Color="#1E1E1E"/>
+            <SolidColorBrush x:Key="SurfaceBrush" Color="#2D2D2D"/>
+            <SolidColorBrush x:Key="TextBrush" Color="#FFFFFF"/>
+            <SolidColorBrush x:Key="TextSecondaryBrush" Color="#888888"/>
+            <SolidColorBrush x:Key="BorderBrush" Color="#3C3C3C"/>
+            <SolidColorBrush x:Key="PrimaryBrush" Color="#1E90FF"/>
+            <Style x:Key="BaseButton" TargetType="Button">
+                <Setter Property="Margin" Value="2"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" 
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Opacity" Value="0.85"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="border" Property="Opacity" Value="0.7"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- 数字按钮 -->
+            <Style x:Key="NumButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+                <Setter Property="Background" Value="#3C3C3C"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+            </Style>
+
+            <!-- 操作符按钮 -->
+            <Style x:Key="OpButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+                <Setter Property="Background" Value="#505050"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+            </Style>
+
+            <!-- 函数按钮 -->
+            <Style x:Key="FuncButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+                <Setter Property="Background" Value="#2D2D2D"/>
+                <Setter Property="Foreground" Value="#AAAAAA"/>
+                <Setter Property="FontSize" Value="13"/>
+            </Style>
+
+            <!-- 内存按钮 -->
+            <Style x:Key="MemButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+                <Setter Property="Background" Value="#2D4A2D"/>
+                <Setter Property="Foreground" Value="#90EE90"/>
+                <Setter Property="FontSize" Value="13"/>
+            </Style>
+
+            <!-- 清除按钮 -->
+            <Style x:Key="ClearButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+                <Setter Property="Background" Value="#8B2020"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Style>
+
+            <!-- 等号按钮 -->
+            <Style x:Key="EqualButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+                <Setter Property="Background" Value="#1E90FF"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+            </Style>
+        </ResourceDictionary>
+        <!-- 基础按钮样式 -->
+
+    </Window.Resources>
+</Window>

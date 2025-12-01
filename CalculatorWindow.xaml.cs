@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Phobos.Shared.Class;
+using System;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Phobos.Calculator
 {
@@ -18,25 +21,11 @@ namespace Phobos.Calculator
         {
             _plugin = plugin;
             _engine = new CalculatorEngine();
-
-            InitializeComponent();
-
-            // 应用主程序主题（如果可用）
-            ApplyTheme();
-
+            
             // 设置焦点到显示框
             Loaded += (s, e) => Display.Focus();
         }
 
-        private void ApplyTheme()
-        {
-            var theme = _plugin.GetThemeResources();
-            if (theme != null)
-            {
-                // 添加主题资源
-                Resources.MergedDictionaries.Insert(0, theme);
-            }
-        }
 
         private void AngleModeCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

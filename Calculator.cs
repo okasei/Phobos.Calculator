@@ -1,7 +1,9 @@
 ﻿using Phobos.Shared.Class;
 using Phobos.Shared.Interface;
+using Phobos.Shared.Manager;
 using System;
 using System.Collections.Generic;
+using System.Resources;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -21,9 +23,10 @@ namespace Phobos.Calculator
             Manufacturer = "Phobos Team",
             Version = "1.0.0",
             Secret = "phobos_calculator_sercet_jf092la0do1g",
-            DatabaseKey = "com.phobos.calculator",
+            DatabaseKey = "PCal",
             Description = "A scientific calculator with basic and advanced functions",
-            IconPath = "Assets/icon.png",
+            Icon = "Assets/icon.png",
+            Entry = "show()",
             MinPhobosVersion = "1.0.0",
             Dependencies = new List<PluginDependency>(),
             LocalizedNames = new Dictionary<string, string>
@@ -66,6 +69,7 @@ namespace Phobos.Calculator
         #region UI 组件
 
         private CalculatorUI? _calculatorUI;
+        private readonly PluginResourceManager _resourceManager = new();
 
         public override FrameworkElement? ContentArea => _calculatorUI;
 
@@ -352,14 +356,10 @@ namespace Phobos.Calculator
         /// </summary>
         public async Task<RequestResult> OpenCalculatorWindow()
         {
+            Dictionary_Initialize();
             var window = new CalculatorWindow(this);
-
-            // 应用主程序主题
-            var theme = GetMergedDictionaries();
-            if (theme != null)
-            {
-                window.Resources.MergedDictionaries.Add(theme);
-            }
+            _resourceManager.ApplyToWindow(window);
+            window.InitializeComponent();
             window.Show();
             return new RequestResult { Success = true, Message = "Opening Calculator Window" };
         }
@@ -372,6 +372,14 @@ namespace Phobos.Calculator
             return GetMergedDictionaries();
         }
 
+        public void Dictionary_Initialize()
+        {
+            var hostTheme = GetMergedDictionaries();
+            _resourceManager.SetHostTheme(hostTheme);
+
+            // 调试
+            _resourceManager.DebugPrint();
+        }
         #endregion
     }
 }

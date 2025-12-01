@@ -9,7 +9,7 @@
         Width="380" Height="520"
         MinWidth="320" MinHeight="450"
         WindowStartupLocation="CenterScreen"
-        Background="{DynamicResource BackgroundBrush}">
+        Background="{DynamicResource Background1Brush}">
 
 
     <Grid Margin="10">
@@ -23,7 +23,7 @@
         <!-- 设置栏 -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,5">
             <TextBlock Text="Angle:" VerticalAlignment="Center" Margin="0,0,5,0"
-                       Foreground="{DynamicResource TextBrush}"/>
+                       Foreground="{DynamicResource Foreground1Brush}"/>
             <ComboBox x:Name="AngleModeCombo" Width="70" SelectionChanged="AngleModeCombo_SelectionChanged">
                 <ComboBoxItem Content="Deg" IsSelected="True"/>
                 <ComboBoxItem Content="Rad"/>
@@ -35,12 +35,12 @@
         <TextBlock x:Name="HistoryDisplay" Grid.Row="1" 
                    Height="20" Margin="5,0,5,5"
                    FontSize="12" TextAlignment="Right"
-                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+                   Foreground="{DynamicResource Foreground2Brush}"/>
 
         <!-- 主显示屏 -->
         <Border Grid.Row="2" BorderThickness="1" CornerRadius="4" Margin="0,0,0,10"
                 BorderBrush="{DynamicResource BorderBrush}"
-                Background="{DynamicResource SurfaceBrush}">
+                Background="{DynamicResource Background2Brush}">
             <TextBox x:Name="Display" 
                      Height="60" Margin="10"
                      FontSize="32" FontFamily="Consolas"
@@ -49,7 +49,7 @@
                      Text="0" 
                      BorderThickness="0"
                      Background="Transparent"
-                     Foreground="{DynamicResource TextBrush}"
+                     Foreground="{DynamicResource Foreground1Brush}"
                      CaretBrush="{DynamicResource PrimaryBrush}"
                      KeyDown="Display_KeyDown"/>
         </Border>
@@ -133,12 +133,6 @@
     <Window.Resources>
         <ResourceDictionary>
             <!-- 设计时默认值（运行时会被主题覆盖） -->
-            <SolidColorBrush x:Key="BackgroundBrush" Color="#1E1E1E"/>
-            <SolidColorBrush x:Key="SurfaceBrush" Color="#2D2D2D"/>
-            <SolidColorBrush x:Key="TextBrush" Color="#FFFFFF"/>
-            <SolidColorBrush x:Key="TextSecondaryBrush" Color="#888888"/>
-            <SolidColorBrush x:Key="BorderBrush" Color="#3C3C3C"/>
-            <SolidColorBrush x:Key="PrimaryBrush" Color="#1E90FF"/>
             <Style x:Key="BaseButton" TargetType="Button">
                 <Setter Property="Margin" Value="2"/>
                 <Setter Property="FontSize" Value="16"/>
@@ -168,42 +162,42 @@
 
             <!-- 数字按钮 -->
             <Style x:Key="NumButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
-                <Setter Property="Background" Value="#3C3C3C"/>
-                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="{DynamicResource Background3Brush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource Foreground3Brush}"/>
                 <Setter Property="FontWeight" Value="SemiBold"/>
             </Style>
 
             <!-- 操作符按钮 -->
             <Style x:Key="OpButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
-                <Setter Property="Background" Value="#505050"/>
-                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
                 <Setter Property="FontWeight" Value="Bold"/>
             </Style>
 
             <!-- 函数按钮 -->
             <Style x:Key="FuncButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
-                <Setter Property="Background" Value="#2D2D2D"/>
-                <Setter Property="Foreground" Value="#AAAAAA"/>
+                <Setter Property="Background" Value="{DynamicResource Background4Brush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource Foreground4Brush}"/>
                 <Setter Property="FontSize" Value="13"/>
             </Style>
 
             <!-- 内存按钮 -->
             <Style x:Key="MemButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
-                <Setter Property="Background" Value="#2D4A2D"/>
-                <Setter Property="Foreground" Value="#90EE90"/>
+                <Setter Property="Background" Value="{DynamicResource Background5Brush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource Foreground5Brush}"/>
                 <Setter Property="FontSize" Value="13"/>
             </Style>
 
             <!-- 清除按钮 -->
             <Style x:Key="ClearButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
-                <Setter Property="Background" Value="#8B2020"/>
-                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="{DynamicResource WarningBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource Foreground1Brush}"/>
             </Style>
 
             <!-- 等号按钮 -->
             <Style x:Key="EqualButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
-                <Setter Property="Background" Value="#1E90FF"/>
-                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="{DynamicResource InfoBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource Foreground1Brush}"/>
                 <Setter Property="FontWeight" Value="Bold"/>
             </Style>
         </ResourceDictionary>
